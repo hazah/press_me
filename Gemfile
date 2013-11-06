@@ -82,4 +82,4 @@ gem 'carrierwave_backgrounder', '0.3.0'
 
 # ActiveRecord
 gem 'squeel', '1.1.1'
-gem 'searchlight'
+gem 'searchlight', '1.3.1'
