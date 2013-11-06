@@ -71,6 +71,7 @@ gem 'kgio', '2.8.1'
 
 # Authentication & Authorization
 gem 'warden', '1.2.3'
+gem 'authority', '2.9.0'
 
 # File upload
 gem 'carrierwave', git: 'git@github.com:hazah/carrierwave.git', tag: 'v0.9.0'
@@ -78,3 +79,7 @@ gem 'carrierwave', git: 'git@github.com:hazah/carrierwave.git', tag: 'v0.9.0'
 # Background tasks
 gem 'delayed_job_active_record', '4.0.0'
 gem 'carrierwave_backgrounder', '0.3.0'
+
+# ActiveRecord
+gem 'squeel', '1.1.1'
+gem 'searchlight'
