@@ -17,3 +17,6 @@
 # Ignore gemset and version rvm files.
 .ruby-*
 .rvmrc
+
+# Ignore envoronment files.
+.env
