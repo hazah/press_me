@@ -36,15 +36,6 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '3.1.2'
 
-# Use unicorn as the app server in production
-gem 'unicorn', '4.6.3', group: :production
-
-# This is necessary to deploy on heroku
-gem 'rails_12factor', group: :production
-
-# Heroku specific memcached for production
-gem 'memcachier', group: :production
-
 # Use debugger
 gem 'debugger', group: [:development, :test]
 
@@ -73,7 +64,7 @@ gem 'kgio', '2.8.1'
 gem 'warden', '1.2.3'
 gem 'authority', '2.9.0'
 
-# File upload
+# File upload with, forked to utilize real caching server for cache storage.
 gem 'carrierwave', git: 'git@github.com:hazah/carrierwave.git', tag: 'v0.9.0'
 
 # Background tasks
@@ -83,3 +74,18 @@ gem 'carrierwave_backgrounder', '0.3.0'
 # ActiveRecord
 gem 'squeel', '1.1.1'
 gem 'searchlight', '1.3.1'
+
+# Helpers
+gem 'decent_exposure', '2.3.0'
+
+## Since these are on the production environment, it will specify the versions.
+## The idea is to keep current!
+
+# Use unicorn as the app server in production
+gem 'unicorn', group: :production
+
+# This is necessary to deploy on heroku
+gem 'rails_12factor', group: :production
+
+# Heroku specific memcached for production
+gem 'memcachier', group: :production

@@ -21,5 +21,82 @@ module PressMe
     # config.i18n.default_locale = :de
 
     config.cache_store = :dalli_store
+
+    config.middleware.insert_before ActionDispatch::Flash, Warden::Manager do |manager|
+      manager.default_scope = :user
+
+      manager.scope_defaults :user,       strategies: [:email_password]
+      manager.scope_defaults :developer,  strategies: [:developer]
+      manager.scope_defaults :global,     strategies: [:global]
+
+      manager.failure_app = proc do |env|
+        # TODO: Point this to a controller action
+        [200, {}, 'Authentication Required']
+      end
+    end
+  end
+
+  # Authentication configuration.
+
+  Warden::Strategies.add :email_password do
+    def valid?
+      params[:email] || params[:password]
+    end
+
+    def authenticate!
+      if account = PressMe.account_class.find_by_email(params[:email])
+        account.authenticate(params[:password]).tap do |a|
+          a.nil? ? fail!("Authentication Failed") : success!(a)
+        end
+      end
+    end
+  end
+
+  Warden::Strategies.add :global do
+    def valid?
+      true
+    end
+
+    def authenticate!
+      PressMe.account_class.global.build.tap do |account|
+      end
+    end
+  end
+
+  Warden::Strategies.add :developer do
+    def valid?
+      Rails.development?
+    end
+
+    def authenticate!
+      PressMe.account_class.developer.build.tap do |account|
+      end
+    end
+  end
+
+  Warden::Manager.serialize_into_session do |account|
+    account.id
+  end
+
+  Warden::Manager.serialize_from_session do |id|
+    PressMe.account_class.find id
+  end
+
+  class << self
+    def account_class
+      @account_class
+    end
+
+    def account_class=(klass)
+      @account_class = klass
+    end
+
+    def anonymous
+      0
+    end
+
+    def developer
+      1
+    end
   end
 end

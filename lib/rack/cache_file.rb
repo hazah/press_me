@@ -51,9 +51,7 @@ module Rack
 
       @path = F.join(@root, *clean)
 
-      available = cache.exists?
-
-      if available
+      if cache.exists?
         serving(env)
       else
         fail(404, "File not found: #{path_info}")

@@ -1,4 +1,14 @@
 PressMe::Application.routes.draw do
+  resources :comments
+
+  resources :term_taxonomies
+
+  resources :posts
+
+  resources :terms
+
+  resources :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
