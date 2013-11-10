@@ -1,4 +1,5 @@
 Authority.configure do |config|
+  config.logger = Rails.logger
 
   # USER_METHOD
   # ===========
@@ -27,6 +28,7 @@ Authority.configure do |config|
     :create  => 'create',
     :edit    => 'update',
     :update  => 'update',
+    :publish => 'update',
     :destroy => 'delete',
     :delete  => 'delete'
   }
@@ -43,7 +45,9 @@ Authority.configure do |config|
     :create => 'creatable',
     :read   => 'readable',
     :update => 'updatable',
-    :delete => 'deletable'
+    :delete => 'deletable',
+
+    :publish => 'publishable'
   }
 
   # LOGGER

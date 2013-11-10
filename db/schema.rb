@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107010553) do
+ActiveRecord::Schema.define(version: 20131109195315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 20131107010553) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "metadata", force: true do |t|
+    t.integer "resource_id"
+    t.string  "resource_type"
+    t.string  "key",           null: false
+    t.text    "value"
+  end
+
+  add_index "metadata", ["resource_id", "resource_type"], name: "index_metadata_on_resource_id_and_resource_type", using: :btree
+
   create_table "options", force: true do |t|
     t.integer "blog_id"
     t.string  "name"
@@ -67,7 +76,7 @@ ActiveRecord::Schema.define(version: 20131107010553) do
     t.string   "status"
     t.string   "comment_status"
     t.string   "ping_status"
-    t.string   "password"
+    t.string   "password_digest"
     t.string   "name"
     t.text     "ping"
     t.text     "pinged"

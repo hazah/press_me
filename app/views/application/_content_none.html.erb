@@ -1,0 +1,21 @@
+<header class="page-header">
+	<h1 class="page-title"><%= t :nothing_found %></h1>
+</header>
+
+<div class="page-content">
+	<% if current_page?(root_url) && account.can_publish?(Post) %>
+
+	<p><%= t :ready_to_publish_first_post %> <%= link_to t(:get_started_here), new_post_path %></p>
+
+	<% elsif current_page? searches_url %>
+
+	<p><%= t :nothing_matched_terms  %></p>
+	<%= render 'searches/form' %>
+
+	<% else %>
+
+	<p><%= t :search_can_help %></p>
+	<%= render 'searches/form' %>
+
+	<% end %>
+</div>

@@ -20,4 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  nothing_found:                Nothing Found
+  ready_to_publish_first_post:  Ready to publish your first post?
+  get_started_here:             Get started here
+  nothing_matched_terms:        Sorry, but nothing matched your search terms. Please try again with different keywords.
+  search_can_help:              It seems we can't find what you're looking for. Perhaps searching can help.
+
+  activerecord:
+    attributes:
+      post:
+        content: 'Body'

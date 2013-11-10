@@ -1,0 +1,2 @@
+class TermTaxonomiesController < ApplicationController
+end

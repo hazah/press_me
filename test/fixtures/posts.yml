@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  exerpt: MyText
+  status: MyString
+  comment_status: MyString
+  ping_status: MyString
+  password: MyString
+  name: MyString
+  ping: MyString
+  pinged: MyString
+  filter: MyString
+  parent: 1
+  menu_order: 1
+  type: 
+  mime_type: MyString
+  comment_count: 1
+
+two:
+  title: MyString
+  content: MyText
+  exerpt: MyText
+  status: MyString
+  comment_status: MyString
+  ping_status: MyString
+  password: MyString
+  name: MyString
+  ping: MyString
+  pinged: MyString
+  filter: MyString
+  parent: 1
+  menu_order: 1
+  type: 
+  mime_type: MyString
+  comment_count: 1

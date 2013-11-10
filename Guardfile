@@ -2,8 +2,10 @@
 # More info at https://github.com/guard/guard#readme
 
 guard 'livereload' do
-  watch(%r{app/views/.+\.(erb|haml|slim)$})
+  watch(%r{app/(controllers|models)/(concerns/)?.+\.rb})
+  watch(%r{app/views/(layouts/)?.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})
+  watch(%r{app/authorizers/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
   watch(%r{config/locales/.+\.yml})
   # Rails Assets Pipeline
