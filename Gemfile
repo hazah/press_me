@@ -74,6 +74,7 @@ gem 'carrierwave_backgrounder', '0.3.0'
 # ActiveRecord
 gem 'squeel', '1.1.1'
 gem 'searchlight', '1.3.1'
+gem 'kaminari', '0.14.1'
 
 # Helpers
 gem 'decent_exposure', '2.3.0'
