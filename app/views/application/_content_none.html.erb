@@ -3,7 +3,7 @@
 </header>
 
 <div class="page-content">
-	<% if current_page?(root_url) && account.can_publish?(Post) %>
+	<% if (current_page?(posts_url) || current_page?(root_url)) && account.can_publish?(Post) %>
 
 	<p><%= t :ready_to_publish_first_post %> <%= link_to t(:get_started_here), new_post_path %></p>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109195315) do
+ActiveRecord::Schema.define(version: 20131109201637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,10 +53,12 @@ ActiveRecord::Schema.define(version: 20131109195315) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "metadata", force: true do |t|
-    t.integer "resource_id"
-    t.string  "resource_type"
-    t.string  "key",           null: false
-    t.text    "value"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.string   "key"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "metadata", ["resource_id", "resource_type"], name: "index_metadata_on_resource_id_and_resource_type", using: :btree
