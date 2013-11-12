@@ -21,11 +21,13 @@ PressMe::Application.configure do
   # Use memcached for caching
   client = Dalli::Client.new(ENV["MEMCACHIER_SERVERS"], value_max_bytes: 10485760)
   config.action_dispatch.rack_cache = {
-    metastore: client
+    metastore: client,
     entitystore: client
   }
 
   config.static_cache_control = "public, max-age=2592000"
+
+  config.middleware.insert_after Rack::Cache, Dragonfly::Middleware, :file_upload
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = true
