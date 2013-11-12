@@ -64,12 +64,11 @@ gem 'kgio', '2.8.1'
 gem 'warden', '1.2.3'
 gem 'authority', '2.9.0'
 
-# File upload with, forked to utilize real caching server for cache storage.
-gem 'carrierwave', git: 'git@github.com:hazah/carrierwave.git', tag: 'v0.9.0'
+# File upload
+gem 'dragonfly', '0.9.15'
 
 # Background tasks
 gem 'delayed_job_active_record', '4.0.0'
-gem 'carrierwave_backgrounder', '0.3.0'
 
 # ActiveRecord
 gem 'squeel', '1.1.1'
