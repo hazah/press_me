@@ -1,4 +1,6 @@
 PressMe::Application.routes.draw do
+  resources :links
+
   resources :comments
 
   resources :term_taxonomies

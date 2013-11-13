@@ -4,7 +4,7 @@ class CreateTermTaxonomies < ActiveRecord::Migration
       t.references  :term,      index: true
       t.string      :taxonomy,  size: 32
       t.text        :description
-      t.integer     :parent
+      t.references  :parent,    null: true
       t.integer     :count
 
       t.timestamps

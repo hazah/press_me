@@ -27,5 +27,16 @@ PressMe::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  # Use memcached for caching
+  client = Dalli::Client.new("localhost:11211", value_max_bytes: 10485760)
+  config.action_dispatch.rack_cache = {
+    metastore: client,
+    entitystore: client
+  }
+
+  config.static_cache_control = "public, max-age=2592000"
+
+  config.middleware.insert_after Rack::Cache, Dragonfly::Middleware, :file_upload
+
   config.middleware.use Rack::LiveReload
 end

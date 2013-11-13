@@ -1,15 +1,15 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string    :type,            size: 32
-      t.string    :email,           size: 60
-      t.string    :password_digest, size: 255
-      t.string    :nicename,        size: 50,   null: true
-      t.string    :url,             size: 100,  null: true
-      t.datetime  :registered
-      t.string    :activation_key,  size: 60,   null: true
-      t.integer   :status
-      t.string    :display_name,    size: 250,  null: true
+      t.string      :email,           size: 60,                  null: false, index: true
+      t.string      :password_digest, size: 255,                 null: false
+      t.string      :nicename,        size: 50,                  null: false, index: true
+      t.string      :url,             size: 100,                 null: false
+      t.string      :activation_key,  size: 60,                  null: false
+      t.integer     :status,                     default: false, null: false
+      t.string      :display_name,    size: 250,                 null: false
+      t.boolean     :spam,                       default: false, null: false
+      t.boolean     :deleted,                    default: false, null: false
 
       t.timestamps
     end

@@ -78,14 +78,17 @@ gem 'kaminari', '0.14.1'
 # Helpers
 gem 'decent_exposure', '2.3.0'
 
-## Since these are on the production environment, it will specify the versions.
+
+## The production environment will specify the versions for the following.
 ## The idea is to keep current!
 
-# Use unicorn as the app server in production
-gem 'unicorn', group: :production
+group :production do
+  # Use unicorn as the app server in production
+  gem 'unicorn'
 
-# This is necessary to deploy on heroku
-gem 'rails_12factor', group: :production
+  # This is necessary to deploy on heroku
+  gem 'rails_12factor'
 
-# Heroku specific memcached for production
-gem 'memcachier', group: :production
+  # Heroku specific memcached for production
+  gem 'memcachier'
+end

@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  url: MyString
+  name: MyString
+  image_uid: MyString
+  image_name: MyString
+  image_ext: MyString
+  image_size: MyString
+  image_width: MyString
+  image_height: MyString
+  image_depth: MyString
+  image_format: MyString
+  target: MyString
+  description: MyString
+  visible: MyString
+  owner: 1
+  rating: 1
+  rel: MyString
+  notes: MyText
+  rss: MyString
+
+two:
+  url: MyString
+  name: MyString
+  image_uid: MyString
+  image_name: MyString
+  image_ext: MyString
+  image_size: MyString
+  image_width: MyString
+  image_height: MyString
+  image_depth: MyString
+  image_format: MyString
+  target: MyString
+  description: MyString
+  visible: MyString
+  owner: 1
+  rating: 1
+  rel: MyString
+  notes: MyText
+  rss: MyString
