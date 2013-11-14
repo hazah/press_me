@@ -1,29 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  post_id: 
-  author: MyString
-  email: MyString
-  url: MyString
-  ip: MyString
+  post: one
+  author_name: MyString
+  author_email: MyString
+  author_url: MyString
+  author_ip: MyString
   content: MyText
   karma: 1
   approved: MyString
   agent: MyString
-  type: 
+  comment_type: MyString
   parent: 1
-  user_id: 
+  user_id: two
 
 two:
-  post_id: 
-  author: MyString
-  email: MyString
-  url: MyString
-  ip: MyString
+  post: two
+  author_name: MyString
+  author_email: MyString
+  author_url: MyString
+  author_ip: MyString
   content: MyText
   karma: 1
   approved: MyString
   agent: MyString
-  type: 
+  comment_type: MyString
   parent: 1
-  user_id: 
+  user: two

@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20131114034945) do
   add_index "blogs", ["site_id"], name: "index_blogs_on_site_id", using: :btree
 
   create_table "comments", force: true do |t|
-    t.integer  "blog_id",                    null: false
+    t.integer  "post_id",                    null: false
     t.text     "author_name"
     t.string   "author_email"
     t.string   "author_url"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20131114034945) do
   end
 
   add_index "comments", ["approved", "created_at"], name: "index_comments_on_approved_and_created_at", using: :btree
-  add_index "comments", ["blog_id"], name: "index_comments_on_blog_id", using: :btree
   add_index "comments", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 20131114034945) do
   create_table "metadata", force: true do |t|
     t.integer "resource_id",   null: false
     t.string  "resource_type", null: false
-    t.string  "key",           null: false
-    t.text    "value"
+    t.string  "name",          null: false
+    t.text    "value",         null: false
   end
 
   add_index "metadata", ["resource_id", "resource_type"], name: "index_metadata_on_resource_id_and_resource_type", using: :btree

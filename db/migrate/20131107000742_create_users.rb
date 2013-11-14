@@ -17,13 +17,14 @@ class CreateUsers < ActiveRecord::Migration
 
     reversible do |direction|
       direction.instance_eval do
+
         up do
           User.create id: PressMe.anonymous, type: 'User::Anonymous', email: '',
             password: 'password', password_confirmation: 'password',
             status: 'active', display_name: 'Anonymous'
 
           User.create({type: 'User::Developer',
-            email: 'email@example.com', password: 'password',
+            email: 'email@example.com', password: 'password', roles: [:administrator],
             password_confirmation: 'password', status: 'active',
              display_name: 'Developer'}) { |user| PressMe.developer = user.id }
         end

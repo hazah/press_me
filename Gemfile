@@ -73,7 +73,7 @@ gem 'delayed_job_active_record', '4.0.0'
 # ActiveRecord
 gem 'squeel', '1.1.1'
 gem 'searchlight', '1.3.1'
-gem 'has_eav', git: 'https://github.com/hazah/has_eav.git', tag: 'v1.2.1'
+gem 'has_eav', git: 'https://github.com/hazah/has_eav.git', tag: 'v1.2.2'
 
 # ActionController
 gem 'decent_exposure', '2.3.0'

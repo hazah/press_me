@@ -1,21 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  type: User
   email: MyString
-  password: MyString
+  password_digest: MyString
   nicename: MyString
   url: MyString
-  registered: 2013-11-06 19:07:42
   activation_key: MyString
   status: 1
   display_name: MyString
 
 two:
+  type: User
   email: MyString
-  password: MyString
+  password_digest: MyString
   nicename: MyString
   url: MyString
-  registered: 2013-11-06 19:07:42
   activation_key: MyString
   status: 1
   display_name: MyString

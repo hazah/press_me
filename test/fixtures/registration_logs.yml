@@ -3,11 +3,11 @@
 one:
   email: MyString
   ip: MyString
-  blog_id: 
+  blog: one
   registered: 2013-11-13 22:01:56
 
 two:
   email: MyString
   ip: MyString
-  blog_id: 
+  blog: two
   registered: 2013-11-13 22:01:56

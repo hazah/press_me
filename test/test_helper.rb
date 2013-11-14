@@ -61,4 +61,14 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  include Warden::Test::Helpers
+  teardown do
+    Warden.test_reset!
+  end
+end
+
+require 'test_helper/warden'
+
+class ActionController::TestCase
+  include Warden::Test::ControllerHelpers
 end

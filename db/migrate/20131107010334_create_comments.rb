@@ -1,7 +1,7 @@
 class CreateComments < ActiveRecord::Migration
   def change
     create_table :comments do |t|
-      t.references  :blog,                                  null: false, index: true
+      t.references  :post,                                  null: false, index: true
       t.text        :author_name
       t.string      :author_email, size: 100
       t.string      :author_url,   size: 200

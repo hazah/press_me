@@ -5,8 +5,11 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
 
-  has_eav through: :metadata, as: :resource do
-
+  has_eav through: :metadatum, as: :resource do
+    eav_attribute :first_name
+    eav_attribute :last_name
+    eav_attribute :description
+    eav_attribute :roles
   end
 
   has_secure_password

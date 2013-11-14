@@ -1,15 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  term_id: 
+  term: one
   taxonomy: MyString
   description: MyText
-  parent: 1
   count: 1
 
 two:
-  term_id: 
+  term: two
   taxonomy: MyString
   description: MyText
-  parent: 1
+  parent: one
   count: 1

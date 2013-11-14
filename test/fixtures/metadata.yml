@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  resource_id: 
-  key: MyString
+  resource: one
+  resource_type: User
+  name: MyString
   value: MyText
 
 two:
-  resource_id: 
-  key: MyString
+  resource: two
+  resource_type: User
+  name: MyString
   value: MyText
