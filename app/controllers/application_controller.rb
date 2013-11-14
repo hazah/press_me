@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   before_action :parse_params
 
-  #authorize_actions_for Post
+  authorize_actions_for Post
 
 protected
 
