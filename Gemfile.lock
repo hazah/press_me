@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/hazah/has_eav.git
+  revision: 1264b7e103311e9d22f843d71b094762ac074e3f
+  tag: v1.2.1
+  specs:
+    has_eav (1.2.0)
+      activerecord (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -233,6 +241,7 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-spork
+  has_eav!
   jbuilder (= 1.5.2)
   jquery-rails (= 3.0.4)
   kaminari (= 0.14.1)

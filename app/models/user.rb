@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
 
-  has_many :metadata, as: :resource
+  has_eav through: :metadata, as: :resource do
+
+  end
 
   has_secure_password
 
@@ -13,16 +15,4 @@ class User < ActiveRecord::Base
   validates :password,          confirmation: true, unless: ->(u) { u.password.blank? }
 
   include Authority::UserAbilities
-
-  def roles
-    @roles ||= begin
-      metadata.find_by(key: 'roles').value.keys.flatten
-    end
-  end
-
-  def permissions
-    @permissions ||= begin
-      metadata.find_by(key: 'roles').value.values.flatten
-    end
-  end
 end
