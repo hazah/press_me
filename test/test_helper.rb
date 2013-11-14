@@ -67,7 +67,7 @@ class ActiveSupport::TestCase
   end
 end
 
-require 'test_helper/warden'
+require File.expand_path('../test_helper/warden', __FILE__)
 
 class ActionController::TestCase
   include Warden::Test::ControllerHelpers
