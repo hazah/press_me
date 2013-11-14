@@ -16,12 +16,20 @@ PressMe::Application.routes.draw do
     PostsController.action(:index).call(env)
   }
 
-  scope :admin do
-    resources :sites, except: :show
-    resources :blogs, except: :show
-    resources :posts, except: :show
-    resources :terms, except: :show
-    resources :comments, except: :show
-    resources :users, except: :show
+  concern :show_form do
+    member do
+      get :edit, as: :show
+    end
   end
+
+  scope :admin do
+    resources :sites, except: [:show, :edit], concerns: [:show_form]
+    resources :blogs, except: [:show, :edit], concerns: [:show_form]
+    resources :posts, except: [:show, :edit], concerns: [:show_form]
+    resources :terms, except: [:show, :edit], concerns: [:show_form]
+    resources :comments, except: [:show, :edit], concerns: [:show_form]
+    resources :users, except: [:show, :edit], concerns: [:show_form]
+  end
+
+  #match ''
 end
