@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  site_id: 
+  domain: MyString
+  path: MyString
+  public: false
+  archived: false
+  mature: false
+  span: false
+  deleted: false
+  lang_id: 1
+
+two:
+  site_id: 
+  domain: MyString
+  path: MyString
+  public: false
+  archived: false
+  mature: false
+  span: false
+  deleted: false
+  lang_id: 1

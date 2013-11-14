@@ -1,5 +1,9 @@
 PressMe::Application.routes.draw do
-  resources :links
+  resources :signups
+
+  resources :sites
+
+  resources :blogs
 
   resources :comments
 

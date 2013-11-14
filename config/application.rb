@@ -30,8 +30,8 @@ module PressMe
       manager.scope_defaults :global,     strategies: [:global]
 
       manager.failure_app = proc do |env|
-        # TODO: Point this to a controller action
-        [200, {}, 'Authentication Required']
+        request = ActionDispatch::Request.new(env)
+        PostsController.action(:index).call(env)
       end
     end
   end

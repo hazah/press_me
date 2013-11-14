@@ -10,17 +10,19 @@ class CreatePosts < ActiveRecord::Migration
       t.string      :comment_status,  size: 20,    default: 'open',    null: false
       t.string      :ping_status,     size: 20,    default: 'open',    null: false
       t.string      :password_digest, size: 255,                       null: false
-      t.string      :name,            size: 200,                       null: false
+      t.string      :name,            size: 200,                       null: false, index: true
       t.text        :ping,                                             null: false
       t.text        :pinged,                                           null: false
       t.text        :filtered,                                         null: false
-      t.integer     :parent,                                           null: false
+      t.integer     :parent,                                           null: false, index: true
       t.integer     :menu_order,                                       null: false
-      t.string      :type,            size: 32,                        null: false
+      t.string      :post_type,       size: 32,                        null: false
       t.string      :mime_type,       size: 100,                       null: false
       t.integer     :comment_count,                                    null: false
 
-      t.timestamps
+      t.timestamps null: false
+
+      t.index [:post_type, :status, :created_at, :id]
     end
   end
 end
