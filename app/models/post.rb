@@ -7,18 +7,19 @@ class Post < ActiveRecord::Base
   include Authority::Abilities
 
   scope :published,   ->() { where(status: 'publish') } do
-    def self.authorizer
-      PostAuthorizer.new(self)
+    def authorizer
+      PostAuthorizer::Published
     end
 
-    def self.published?
-      true
-    end
+    include Authority::Abilities::Definitions
   end
 
-  scope :unpublished, ->() { where.not(status: 'publish') }
+  scope :unpublished, ->() { where.not(status: 'publish') } do
+    def authorizer
+    puts "HERE"
+      PostAuthorizer::Unpublished
+    end
 
-  def self.published?
-    false
+    include Authority::Abilities::Definitions
   end
 end

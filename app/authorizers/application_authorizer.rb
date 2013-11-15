@@ -13,4 +13,9 @@ class ApplicationAuthorizer < Authority::Authorizer
     user.is_a? User::Developer
   end
 
+protected
+  def user_scope(user)
+    user.class.name.demodulize.underscore.to_sym
+  end
+
 end

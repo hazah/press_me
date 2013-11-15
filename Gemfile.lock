@@ -1,5 +1,14 @@
 GIT
-  remote: https://github.com/hazah/has_eav.git
+  remote: git@github.com:hazah/authority.git
+  revision: 1b85550776a02473c7f1522b38fe14f1dbc95828
+  tag: v2.9.1
+  specs:
+    authority (2.9.0)
+      activesupport (>= 3.0.0)
+      rake (>= 0.8.7)
+
+GIT
+  remote: git@github.com:hazah/has_eav.git
   revision: 3d63520b4950dfd63e04dec5b358c98143260f9b
   tag: v1.2.2
   specs:
@@ -35,9 +44,6 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.1)
     atomic (1.1.14)
-    authority (2.9.0)
-      activesupport (>= 3.0.0)
-      rake (>= 0.8.7)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
     callsite (0.0.11)
@@ -229,7 +235,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  authority (= 2.9.0)
+  authority!
   bcrypt-ruby (= 3.1.2)
   coffee-rails (= 4.0.1)
   dalli (= 2.6.4)
