@@ -3,14 +3,17 @@ class PostAuthorizer < ApplicationAuthorizer
     super || begin
       case user_scope(user)
       when :anonymous
-        resource.try(:status) == 'publish' || resource.published?
+        resource.published?
       end
     end
   end
 
   def self.readable_by?(user)
     super || begin
-
+      case user_scope(user)
+      when :anonymous
+        scope.published?
+      end
     end
   end
 
@@ -24,15 +27,6 @@ class PostAuthorizer < ApplicationAuthorizer
     super || begin
       true
     end
-  end
-
-  class Published < PostAuthorizer
-    def self.readable_by(user)
-      true
-    end
-  end
-
-  class Unpublished < PostAuthorizer
   end
 
 end

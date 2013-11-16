@@ -62,7 +62,7 @@ gem 'kgio', '2.8.1'
 
 # Authentication & Authorization
 gem 'warden', '1.2.3'
-gem 'authority', git: 'git@github.com:hazah/authority.git', tag: 'v2.9.1'
+gem 'authority', '2.9.0'
 
 # File upload
 gem 'dragonfly', '0.9.15'

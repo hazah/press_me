@@ -6,20 +6,30 @@ class Post < ActiveRecord::Base
 
   include Authority::Abilities
 
-  scope :published,   ->() { where(status: 'publish') } do
-    def authorizer
-      PostAuthorizer::Published
+  def self.scope name, body, &block
+    authorizer = self.authorizer.dup
+    super.tap do |definition|
+      singleton_class.send(:define_method, name) do |*args|
+        definition.call(*args).tap do |scope|
+          authorizer.scope = scope
+        end
+      end
     end
-
-    include Authority::Abilities::Definitions
   end
 
-  scope :unpublished, ->() { where.not(status: 'publish') } do
-    def authorizer
-    puts "HERE"
-      PostAuthorizer::Unpublished
+  scope :published,   ->() { where(status: 'publish') } do
+    def published?
+      true
     end
+  end
 
-    include Authority::Abilities::Definitions
+  scope :unpublished, ->() { where.not(status: 'publish') }
+
+  def self.published?
+    false
+  end
+
+  def published?
+    self.status == 'publish'
   end
 end

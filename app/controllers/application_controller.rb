@@ -9,7 +9,10 @@ class ApplicationController < ActionController::Base
 
   before_action :parse_params
 
-  authorize_actions_for Post
+  authorize_actions_for :posts, only: :index
+  before_action(exept: :index) do
+    authorize_action_for post
+  end
 
 protected
 

@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
-  def index
+protected
+  def posts
+    super.published
   end
 end
