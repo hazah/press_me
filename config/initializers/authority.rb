@@ -66,3 +66,8 @@ Authority.configure do |config|
   # config.logger = Logger.new('/dev/null')          # Don't log at all (on a Unix system)
 
 end
+
+module Authority::Abilities::ClassMethods
+  require 'press_me'
+  include PressMe::Authority::ActiveRecord::Scope
+end
