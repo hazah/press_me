@@ -4,6 +4,8 @@ module PressMe
       module Scope
         def scope name, body, &block
           auth = begin
+            ## I'm unsure as to why self.authorizer always returns 'ApplicationAuthorizer' here
+            ## So I've overridden it to reuse the original algorithm.
             Class.new "#{self.name}Authorizer".constantize
           rescue NameError => e
             "ApplicationAuthorizer".constantize
@@ -19,15 +21,15 @@ module PressMe
         end
 
         def all
-          auth = begin
-            "#{self.name}Authorizer".constantize
-          rescue NameError => e
-            "ApplicationAuthorizer".constantize
-          end
-
           super.tap do |scope|
-            scope.authorizer = auth
-            auth.scope = scope
+            scope.authorizer = begin
+              ## I'm unsure as to why self.authorizer always returns 'ApplicationAuthorizer' here
+              ## So I've overridden it to reuse the original algorithm.
+              "#{self.name}Authorizer".constantize
+            rescue NameError => e
+              "ApplicationAuthorizer".constantize
+            end
+            scope.authorizer.scope = scope
           end
         end
       end

@@ -17,8 +17,6 @@ class ApplicationAuthorizer < Authority::Authorizer
     attr_accessor :scope
   end
 
-  self.scope = self.authorizer_name.gsub(/Authorizer/, '').constantize
-
   def self.user_scope(user)
     user.class.name.demodulize.underscore.to_sym
   end

@@ -11,7 +11,7 @@ class PostAuthorizerTest < ActiveSupport::TestCase
   end
 
   test "anonymous user cannot read all posts" do
-    assert_not users(:anonymous).can_read?(Post.all), 'anonymous user can read all posts.'
+    assert_not users(:anonymous).can_read?(Post), 'anonymous user can read all posts.'
   end
 
   test "anonymous user cannot read unpublished posts" do

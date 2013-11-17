@@ -9,7 +9,7 @@ class PostAuthorizer < ApplicationAuthorizer
   end
 
   def self.readable_by?(user)
-    super || begin
+      super || begin
       case user.class.name.demodulize.underscore.to_sym
       when :anonymous
         scope.published?
