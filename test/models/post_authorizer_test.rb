@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class PostAuthorizerTest < ActiveSupport::TestCase
+  test "authorizers should be different for different scopes" do
+    assert_not_equal Post.published.authorizer, Post.authorizer
+    assert_not_equal Post.unpublished.authorizer, Post.all.authorizer
+  end
+
   test "anonymous user can read published posts" do
     assert users(:anonymous).can_read?(Post.published), 'anonymous user cannot read published posts.'
   end

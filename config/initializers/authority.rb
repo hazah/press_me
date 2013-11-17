@@ -67,7 +67,12 @@ Authority.configure do |config|
 
 end
 
+require 'press_me'
+
 module Authority::Abilities::ClassMethods
-  require 'press_me'
   include PressMe::Authority::ActiveRecord::Scope
+end
+
+class ActiveRecord::Relation
+  include PressMe::Authority::ActiveRecord::Relation
 end
