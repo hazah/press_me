@@ -13,12 +13,16 @@ class ApplicationAuthorizer < Authority::Authorizer
     user.is_a? User::Developer
   end
 
-  cattr_accessor :scope
+  class << self
+    attr_accessor :scope
+  end
 
-protected
+  self.scope = self.authorizer_name.gsub(/Authorizer/, '').constantize
+
   def self.user_scope(user)
     user.class.name.demodulize.underscore.to_sym
   end
+
   def user_scope(user)
     self.class.user_scope(user)
   end

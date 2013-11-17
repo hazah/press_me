@@ -6,7 +6,7 @@ one:
   title: MyString
   content: MyText
   exerpt: MyText
-  status: MyString
+  status: publish
   comment_status: MyString
   ping_status: MyString
   password_digest: MyString
@@ -26,7 +26,7 @@ two:
   title: MyString
   content: MyText
   exerpt: MyText
-  status: MyString
+  status: draft
   comment_status: MyString
   ping_status: MyString
   password_digest: MyString

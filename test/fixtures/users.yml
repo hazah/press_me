@@ -1,21 +1,41 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+anonymous:
   type: User::Anonymous
-  email: MyString
+  email: anonymous@example.com
   password_digest: MyString
-  nicename: MyString
-  url: MyString
+  nicename: Anonymous
+  url: http://example.com
   activation_key: MyString
   status: 1
-  display_name: MyString
+  display_name: Anonymous
+
+developer:
+  type: User::Developer
+  email: developer@example.com
+  password_digest: MyString
+  nicename: Developer
+  url: http://example.com/developer
+  activation_key: MyString
+  status: 1
+  display_name: Developer
+
+one:
+  type: User
+  email: one@example.com
+  password_digest: MyString
+  nicename: One
+  url: http://example.com/one
+  activation_key: MyString
+  status: 1
+  display_name: One
 
 two:
   type: User
-  email: MyString
+  email: two@example.com
   password_digest: MyString
-  nicename: MyString
-  url: MyString
+  nicename: Two
+  url: http://example.com/two
   activation_key: MyString
   status: 1
-  display_name: MyString
+  display_name: Two

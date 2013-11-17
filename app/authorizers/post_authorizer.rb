@@ -13,6 +13,8 @@ class PostAuthorizer < ApplicationAuthorizer
       case user_scope(user)
       when :anonymous
         scope.published?
+      when :user
+        scope.published? || scope.owned_by?(user)
       end
     end
   end
