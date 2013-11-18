@@ -1,34 +1,51 @@
 PressMe::Application.routes.draw do
+  # User facing paths.
+  scope admin: false do
+    root to: proc { |env|
+      PostsController.action(:index).call(env)
+    }
+
+    resources :archives, only: [:index, :show], controller: :posts
+    scope controller: :posts, action: :show do
+      constraints = proc do |request|
+        Post.find_from_slug_path(request.params[:path])
+      end
+
+      get '*path', to: :show, constraints: constraints, as: :permalink
+    end
+
+    scope controller: :terms do
+      constraints = proc do |request|
+        Options.where { name == [:tag_base, :category_base] }.any? do |option|
+          option.value == request.params[:taxonomy]
+        end
+      end
+
+      get ':taxonomy/:id', to: :show, constraints: constraints
+    end
+
+    resources :tags,       only: :show, controller: :terms, taxonomy: :tag
+    resources :categories, only: :show, controller: :terms, taxonomy: :category
+    resources :searches,   only: :index
+  end
+
   concern :deletable do
-    get :delete
+    get :delete, on: :member
   end
-
-  resources :posts, only: [:index, :show] do
-    resources :comments, except: :index, shallow: true
-  end
-
-  resources :terms, only: :show
-  resources :categories, only: :show, controller: :terms
-  resources :searches, only: :index
-  resources :archives, only: :index
-
-  root to: proc { |env|
-    PostsController.action(:index).call(env)
-  }
 
   concern :show_form do
-    member do
-      get :edit, as: :show
-    end
+    get :show, as: :edit, action: :edit, on: :member
   end
 
-  scope :admin do
-    resources :sites, except: [:show, :edit], concerns: [:show_form]
-    resources :blogs, except: [:show, :edit], concerns: [:show_form]
-    resources :posts, except: [:show, :edit], concerns: [:show_form]
-    resources :terms, except: [:show, :edit], concerns: [:show_form]
-    resources :comments, except: [:show, :edit], concerns: [:show_form]
-    resources :users, except: [:show, :edit], concerns: [:show_form]
+  constraints prefix: /admin/ do
+    scope ':prefix', admin: true, except: [:show, :edit] do
+      resources :sites,    concerns: [:show_form, :deletable]
+      resources :blogs,    concerns: [:show_form, :deletable]
+      resources :posts,    concerns: [:show_form, :deletable]
+      resources :terms,    concerns: [:show_form, :deletable]
+      resources :comments, concerns: [:show_form, :deletable], except: :create
+      resources :users,    concerns: [:show_form, :deletable]
+    end
   end
 
   #match ''

@@ -6,18 +6,21 @@ class Post < ActiveRecord::Base
 
   # Must be included before any call to 'scope'
   include Authority::Abilities
+  include Slugalicious
 
-  scope :published,   ->() { where(status: 'publish') } do
+  #slugged :title, scope: ->() {}
+
+  scope :published,   ->() { where {status == 'publish'} } do
     def published?
       true
     end
   end
 
-  scope :unpublished, ->() { where.not(status: 'publish') }
+  scope :unpublished, ->() { where {status != 'publish'} }
 
-  scope :owned_by, ->(user) { where(user: user) } do
+  scope :owned_by, ->(owner) { where {user == my{owner}} } do
     def owned_by?(user)
-      to_a.all? { |post| post.owned_by? user }
+      to_a.any? ? to_a.all? { |post| post.owned_by? user } : false
     end
   end
 

@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_action do
     # TODO: parse params
+    pp params
   end
 
   before_action(only: :index) do

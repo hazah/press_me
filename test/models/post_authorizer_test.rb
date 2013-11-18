@@ -2,8 +2,23 @@ require 'test_helper'
 
 class PostAuthorizerTest < ActiveSupport::TestCase
   test "authorizers should be different for different scopes" do
+    assert_not_equal Post.authorizer, Post.published.authorizer
     assert_not_equal Post.published.authorizer, Post.authorizer
+
+    assert_not_equal Post.all.authorizer, Post.published.authorizer
+    assert_not_equal Post.published.authorizer, Post.all.authorizer
+
+    assert_not_equal Post.unpublished.authorizer, Post.authorizer
+    assert_not_equal Post.authorizer, Post.unpublished.authorizer
+
     assert_not_equal Post.unpublished.authorizer, Post.all.authorizer
+    assert_not_equal Post.all.authorizer, Post.unpublished.authorizer
+
+    assert_not_equal Post.owned_by(users(:one)).authorizer, Post.authorizer
+    assert_not_equal Post.authorizer, Post.owned_by(users(:one)).authorizer
+
+    assert_not_equal Post.owned_by(users(:one)).authorizer, Post.all.authorizer
+    assert_not_equal Post.all.authorizer, Post.owned_by(users(:one)).authorizer
   end
 
   test "anonymous user can read published posts" do
@@ -19,7 +34,7 @@ class PostAuthorizerTest < ActiveSupport::TestCase
   end
 
   test "developer can read all posts" do
-    assert users(:developer).can_read?(Post.all)
+    assert users(:developer).can_read?(Post)
   end
 
   test "logged in user can read published posts" do

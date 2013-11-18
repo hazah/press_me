@@ -182,6 +182,9 @@ GEM
     searchlight (1.3.1)
       named (~> 1.0)
     slop (3.4.7)
+    slugalicious (2.1.0)
+      rails (>= 4.0)
+      stringex
     spork (1.0.0rc4)
     spork-rails (4.0.0)
       rails (>= 3.0.0, < 5)
@@ -201,6 +204,7 @@ GEM
       activerecord (>= 3.0)
       activesupport (>= 3.0)
       polyamorous (~> 0.6.0)
+    stringex (2.1.1)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -256,6 +260,7 @@ DEPENDENCIES
   sass-rails (= 4.0.1)
   sdoc
   searchlight (= 1.3.1)
+  slugalicious (= 2.1.0)
   spork-rails
   spork-testunit
   squeel (= 1.1.1)

@@ -81,6 +81,8 @@ gem 'decent_exposure', '2.3.0'
 # Pagination
 gem 'kaminari', '0.14.1'
 
+# Friendly URL Paths
+gem 'slugalicious', '2.1.0'
 
 ## The production environment will specify the versions for the following.
 ## The idea is to keep current!

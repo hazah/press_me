@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131114234057) do
+ActiveRecord::Schema.define(version: 20131118021002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,18 @@ ActiveRecord::Schema.define(version: 20131114234057) do
   end
 
   add_index "sites", ["domain", "path"], name: "index_sites_on_domain_and_path", using: :btree
+
+  create_table "slugs", force: true do |t|
+    t.integer  "sluggable_id",                              null: false
+    t.string   "sluggable_type",                            null: false
+    t.boolean  "active",                     default: true, null: false
+    t.string   "slug",           limit: 126,                null: false
+    t.string   "scope",          limit: 126
+    t.datetime "created_at"
+  end
+
+  add_index "slugs", ["sluggable_type", "scope", "slug"], name: "slugs_unique", unique: true, using: :btree
+  add_index "slugs", ["sluggable_type", "sluggable_id", "active"], name: "slugs_for_record", using: :btree
 
   create_table "term_taxonomies", force: true do |t|
     t.integer  "term_id",                 null: false
