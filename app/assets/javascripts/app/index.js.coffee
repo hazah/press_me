@@ -1,5 +1,4 @@
 #= require json2
-#= require jquery
 #= require spine
 #= require spine/manager
 #= require spine/ajax
@@ -14,11 +13,11 @@
 class App extends Spine.Controller
   constructor: ->
     super
-    
+
     # Initialize controllers:
     #  @append(@items = new App.Items)
     #  ...
-    
-    Spine.Route.setup()    
+
+    Spine.Route.setup()
 
 window.App = App

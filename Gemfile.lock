@@ -252,6 +252,7 @@ DEPENDENCIES
   has_eav!
   jbuilder (= 1.5.2)
   jquery-rails (= 3.0.4)
+  json2-rails (= 1.0.0)
   kaminari (= 0.14.1)
   kgio (= 2.8.1)
   memcachier
