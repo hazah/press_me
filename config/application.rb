@@ -20,7 +20,13 @@ module PressMe
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.cache_store = :dalli_store
+    config.cache_store = Dalli::Client.new("localhost:11211", value_max_bytes: 10485760)
+    config.static_cache_control = "public, max-age=2592000"
+
+    config.middleware.insert_after Rack::Cache, Dragonfly::Middleware, :file_upload
+    config.middleware.insert_after Rack::Cache, Rack::Rewrite do
+
+    end
 
     config.middleware.insert_after ActionDispatch::Flash, Warden::Manager do |manager|
       manager.default_scope = :user

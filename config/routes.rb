@@ -1,52 +1,55 @@
 PressMe::Application.routes.draw do
   # User facing paths.
-  scope admin: false do
-    root to: proc { |env|
-      PostsController.action(:index).call(env)
-    }
+  defaults admin: false do
+    # Could be any page
+    root 'application#index'
 
-    resources :archives, only: [:index, :show], controller: :posts
-    scope controller: :posts, action: :show do
-      constraints = proc do |request|
-        Post.find_from_slug_path(request.params[:path])
-      end
+    # Blog archive
+    get 'archives/:year(/:month(/:day))' => 'posts#index', as: :archives
+    resources :archives, only: [:index, :show], controller: :posts, as: :posts
+    resources :searches, only: :index
 
-      get '*path', to: :show, constraints: constraints, as: :permalink
-    end
-
-    scope controller: :terms do
-      constraints = proc do |request|
-        Options.where { name == [:tag_base, :category_base] }.any? do |option|
-          option.value == request.params[:taxonomy]
-        end
-      end
-
-      get ':taxonomy/:id', to: :show, constraints: constraints
-    end
-
+    # Blog taxonomies
     resources :tags,       only: :show, controller: :terms, taxonomy: :tag
     resources :categories, only: :show, controller: :terms, taxonomy: :category
-    resources :searches,   only: :index
   end
 
-  concern :deletable do
-    get :delete, on: :member
-  end
+  # Route to the delete form
 
-  concern :show_form do
-    get :show, as: :edit, action: :edit, on: :member
-  end
 
-  constraints prefix: /admin/ do
-    scope ':prefix', admin: true, except: [:show, :edit] do
-      resources :sites,    concerns: [:show_form, :deletable]
-      resources :blogs,    concerns: [:show_form, :deletable]
-      resources :posts,    concerns: [:show_form, :deletable]
-      resources :terms,    concerns: [:show_form, :deletable]
-      resources :comments, concerns: [:show_form, :deletable], except: :create
-      resources :users,    concerns: [:show_form, :deletable]
+  scope ':prefix', except: [:show, :edit] do
+    constraints prefix: /admin/ do
+      defaults admin: true do
+        concern :deletable do |options|
+          get :delete, options.merge(on: :member)
+        end
+
+        # Routes the edit_resource helpers have the show path instead of having the /edit suffix.
+        concern :show_form do |options|
+          get :show, options.merge(as: :edit, action: :edit, on: :member)
+        end
+
+        # Common elements to administered resources.
+        concern :admin do |options|
+          concerns [:show_form, :deletable], options
+        end
+
+  #      resources :sites,
+  #      resources :blogs,
+        resources :posts, concerns: :admin do
+          resources :comments, only: :create
+        end
+
+        # All taxonomies are handled through the terms controller, but they are represented differently
+        # Depending on their type.
+        resources :tags,       concerns: :admin, controller: :terms, taxonomy: :tag
+        resources :categories, concerns: :admin, controller: :terms, taxonomy: :category
+
+        # Comments aren't ever created through an administered index page because they are added directly
+        # to posts.
+        resources :comments, concerns: :admin, except: [:show, :edit, :new, :create]
+        resources :users,    concerns: :admin
+      end
     end
   end
-
-  #match ''
 end
