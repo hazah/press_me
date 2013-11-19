@@ -14,12 +14,10 @@ PressMe::Application.routes.draw do
     resources :categories, only: :show, controller: :terms, taxonomy: :category
   end
 
-  # Route to the delete form
-
-
   scope ':prefix', except: [:show, :edit] do
     constraints prefix: /admin/ do
       defaults admin: true do
+        # Route to the delete form
         concern :deletable do |options|
           get :delete, options.merge(on: :member)
         end
@@ -34,8 +32,11 @@ PressMe::Application.routes.draw do
           concerns [:show_form, :deletable], options
         end
 
+        # Multi-site / Multi-blog support
   #      resources :sites,
   #      resources :blogs,
+
+        # Core blog administration
         resources :posts, concerns: :admin do
           resources :comments, only: :create
         end
