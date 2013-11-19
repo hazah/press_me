@@ -25,6 +25,13 @@ gem 'jquery-rails', '3.0.4'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '1.3.0'
 
+# Gon lets you pass variable values to js.
+gem 'gon', '4.1.1'
+
+# Spine integration
+gem 'spine-rails', '0.1.2'
+gem 'json2-rails', '1.0.0'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '1.5.2'
 

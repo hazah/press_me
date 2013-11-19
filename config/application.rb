@@ -22,7 +22,7 @@ module PressMe
 
     config.cache_store = :dalli_store
 
-    config.middleware.insert_before ActionDispatch::Flash, Warden::Manager do |manager|
+    config.middleware.insert_after ActionDispatch::Flash, Warden::Manager do |manager|
       manager.default_scope = :user
 
       manager.scope_defaults :user,       strategies: [:email_password]
