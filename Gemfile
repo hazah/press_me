@@ -62,13 +62,28 @@ group :development do
   gem 'guard-spork'
 end
 
+# URLs
+
+# Rewrite Middleware
+gem 'rack-rewrite', '1.4.01'
+
 # Caching
+
+# Caching middleware
 gem 'rack-cache', '1.2'
+
+# Cache store
 gem 'dalli', '2.6.4'
+
+# Nonblocking IO
 gem 'kgio', '2.8.1'
 
 # Authentication & Authorization
+
+# Middleware
 gem 'warden', '1.2.3'
+
+# Authorization service
 gem 'authority', '2.9.0'
 
 # File upload
@@ -78,8 +93,14 @@ gem 'dragonfly', '0.9.15'
 gem 'delayed_job_active_record', '4.0.0'
 
 # ActiveRecord
+
+# Enhanced query interface
 gem 'squeel', '1.1.1'
+
+# Searching services
 gem 'searchlight', '1.3.1'
+
+# Entity Attribute Values
 gem 'has_eav', git: 'git@github.com:hazah/has_eav.git', tag: 'v1.2.2'
 
 # ActionController

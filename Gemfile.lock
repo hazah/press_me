@@ -147,6 +147,7 @@ GEM
       rack (>= 0.9.1)
     rack-livereload (0.3.15)
       rack
+    rack-rewrite (1.4.01)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.1)
@@ -264,6 +265,7 @@ DEPENDENCIES
   pg (= 0.17.0)
   rack-cache (= 1.2)
   rack-livereload
+  rack-rewrite (= 1.4.01)
   rails (= 4.0.1)
   rails_12factor
   sass-rails (= 4.0.1)
