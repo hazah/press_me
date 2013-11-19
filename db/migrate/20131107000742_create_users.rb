@@ -21,7 +21,7 @@ class CreateUsers < ActiveRecord::Migration
         up do
           User.create id: PressMe.anonymous, type: 'User::Anonymous', email: '',
             password: 'password', password_confirmation: 'password',
-            status: 'active', display_name: 'Anonymous'
+            roles: [:anonymous], status: 'active', display_name: 'Anonymous'
 
           User.create({type: 'User::Developer',
             email: 'email@example.com', password: 'password', roles: [:administrator],
