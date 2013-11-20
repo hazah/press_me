@@ -35,10 +35,10 @@ module PressMe
           end
 
           # Blog
-          resource :page, only: [], path: '' do
+          scope as: :page do
             resources :posts, only: [:index, :show]
 
-            resource :archive, only: [] do
+            scope :archive, as: :archive do
               resources :year, only: :show, path: '' do
                 resources :month, only: :show, path: '' do
                   resources :day, only: :show, path: ''
@@ -46,10 +46,8 @@ module PressMe
               end
             end
 
-            defaults controller: :terms do
-              resources :tags, only: :show, taxonomy: :tag
-              resources :categories, only: :show, taxonomy: :category
-            end
+            resources :tags,       only: :show, taxonomy: :tag,      controller: :terms
+            resources :categories, only: :show, taxonomy: :category, controller: :terms
 
             resources :searches, only: [:index, :show]
           end
@@ -80,7 +78,7 @@ module PressMe
 
               # Core blog administration
               resources :posts, concerns: :admin do
-                resources :comments, only: :create
+                resources :comments, only: :create, path: ''
               end
 
               # All taxonomies are handled through the terms controller, but they are represented differently
