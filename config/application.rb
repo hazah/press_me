@@ -23,9 +23,88 @@ module PressMe
     config.cache_store = Dalli::Client.new("localhost:11211", value_max_bytes: 10485760)
     config.static_cache_control = "public, max-age=2592000"
 
-    config.middleware.insert_after Rack::Cache, Dragonfly::Middleware, :file_upload
-    config.middleware.insert_after Rack::Cache, Rack::Rewrite do
+    initializer :app_init, before: :build_middleware_stack do
+      config.middleware.insert 1, Dragonfly::Middleware, :file_upload
 
+      routes.append do
+        # User facing paths.
+        defaults admin: false do
+          # Could be any page
+          controller :application do
+            root to: :index
+          end
+
+          # Blog
+          scope as: :page do
+            resources :posts, only: [:index, :show]
+
+            scope :archive, as: :archive do
+              resources :year, only: :show, path: '' do
+                resources :month, only: :show, path: '' do
+                  resources :day, only: :show, path: ''
+                end
+              end
+            end
+
+            resources :tags,       only: :show, taxonomy: :tag,      controller: :terms
+            resources :categories, only: :show, taxonomy: :category, controller: :terms
+
+            resources :searches, only: [:index, :show]
+          end
+        end
+
+        scope ':prefix', except: [:show, :edit] do
+          # Administration
+          constraints prefix: /admin/ do
+            defaults admin: true, prefix: :admin do
+              # Route to the delete form
+              concern :deletable do |options|
+                get :delete, options.merge(on: :member)
+              end
+
+              # Routes the edit_resource helpers have the show path instead of having the /edit suffix.
+              concern :show_form do |options|
+                get :show, options.merge(as: :edit, action: :edit, on: :member)
+              end
+
+              # Common elements to administered resources.
+              concern :admin do |options|
+                concerns [:show_form, :deletable], options
+              end
+
+              # Multi-site / Multi-blog support
+        #      resources :sites,
+        #      resources :blogs,
+
+              # Core blog administration
+              resources :posts, concerns: :admin do
+                resources :comments, only: :create, path: ''
+              end
+
+              # All taxonomies are handled through the terms controller, but they are represented differently
+              # Depending on their type.
+              resources :tags,       concerns: :admin, controller: :terms, taxonomy: :tag
+              resources :categories, concerns: :admin, controller: :terms, taxonomy: :category
+
+              # Comments aren't ever created through an administered index page because they are added directly
+              # to posts.
+              resources :comments, concerns: :admin, except: [:show, :edit, :new, :create]
+              resources :users,    concerns: :admin
+            end
+          end
+        end
+      end
+
+      routes.clear!
+      routes.finalize!
+
+      url_helpers = routes.url_helpers
+
+      config.middleware.insert 1, Rack::Rewrite do
+        singleton_class.instance_eval do
+          include url_helpers
+        end
+      end
     end
 
     config.middleware.insert_after ActionDispatch::Flash, Warden::Manager do |manager|
