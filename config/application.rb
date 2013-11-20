@@ -37,7 +37,7 @@ module PressMe
 
       manager.failure_app = proc do |env|
         request = ActionDispatch::Request.new(env)
-        PostsController.action(:index).call(env)
+        ApplicationController.action(:access_denied).call(env)
       end
     end
   end
