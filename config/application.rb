@@ -24,6 +24,8 @@ module PressMe
     config.static_cache_control = "public, max-age=2592000"
 
     initializer :app_init, before: :build_middleware_stack do
+      config.middleware.insert 1, Dragonfly::Middleware, :file_upload
+
       routes.append do
         # User facing paths.
         defaults admin: false do
@@ -42,6 +44,11 @@ module PressMe
                   resources :day, only: :show, path: ''
                 end
               end
+            end
+
+            defaults controller: :terms do
+              resources :tags, only: :show, taxonomy: :tag
+              resources :categories, only: :show, taxonomy: :category
             end
           end
         end
@@ -87,7 +94,6 @@ module PressMe
           end
         end
       end
-      config.middleware.insert 1, Dragonfly::Middleware, :file_upload
 
       routes.clear!
       routes.finalize!
@@ -98,7 +104,6 @@ module PressMe
         singleton_class.instance_eval do
           include url_helpers
         end
-pp posts_path(prefix: :admin)
       end
     end
 
