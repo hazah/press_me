@@ -26,22 +26,20 @@ module PressMe
     initializer :app_init, before: :build_middleware_stack do
       routes.append do
         # User facing paths.
-        constraints prefix: // do
-          defaults admin: false do
-            # Could be any page
-            controller :application do
-              root to: :index
-            end
+        defaults admin: false do
+          # Could be any page
+          controller :application do
+            root to: :index
+          end
 
-            # Blog
-            resource :page, only: [], path: '' do
-              resources :posts, only: [:index, :show]
+          # Blog
+          resource :page, only: [], path: '' do
+            resources :posts, only: [:index, :show]
 
-              resource :archive, only: [] do
-                resources :year, only: :show, path: :archive do
-                  resources :month, only: :show, path: '' do
-                    resources :day, only: :show, path: ''
-                  end
+            resource :archive, only: [] do
+              resources :year, only: :show, path: :archive do
+                resources :month, only: :show, path: '' do
+                  resources :day, only: :show, path: ''
                 end
               end
             end
