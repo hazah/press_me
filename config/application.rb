@@ -50,6 +50,8 @@ module PressMe
               resources :tags, only: :show, taxonomy: :tag
               resources :categories, only: :show, taxonomy: :category
             end
+
+            resources :searches, only: [:index, :show]
           end
         end
 
