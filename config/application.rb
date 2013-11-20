@@ -37,7 +37,7 @@ module PressMe
             resources :posts, only: [:index, :show]
 
             resource :archive, only: [] do
-              resources :year, only: :show, path: :archive do
+              resources :year, only: :show, path: '' do
                 resources :month, only: :show, path: '' do
                   resources :day, only: :show, path: ''
                 end
