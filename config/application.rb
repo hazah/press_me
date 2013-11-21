@@ -38,53 +38,69 @@ module PressMe
           scope as: :page do
             resources :posts, only: [:index, :show]
 
-            scope :archive, as: :archive do
-              resources :year, only: :show, path: '' do
-                resources :month, only: :show, path: '' do
-                  resources :day, only: :show, path: ''
+            scope only: :show do
+              resource :archive do
+                resources :year, path: '' do
+                  resources :month, path: '' do
+                    resources :day, path: ''
+                  end
                 end
               end
+
+              resources :tags
+              resources :categories
             end
 
-            resources :tags,       only: :show, taxonomy: :tag,      controller: :terms
-            resources :categories, only: :show, taxonomy: :category, controller: :terms
+            resources :search, only: [:index, :show, :create]
+          end
 
-            resources :searches, only: [:index, :show]
+          resources :users, only: :show do
+            concern :user do |options|
+              get :show, options.merge(as: :new, action: :new)
+            end
+
+            collection do
+              scope only: :create do
+                resource :registration, concerns: :user
+                resource :login,        concerns: :user
+                resource :password,     concerns: :user
+              end
+            end
           end
         end
 
-        scope ':prefix', except: [:show, :edit] do
-          # Administration
-          constraints prefix: /admin/ do
-            defaults admin: true, prefix: :admin do
-              # Route to the delete form
-              concern :deletable do |options|
-                get :delete, options.merge(on: :member)
-              end
+        # Administration
+        scope :admin do
+          # Route to the delete form
+          concern :deletable do |options|
+            get :delete, options.merge(on: :member)
+          end
 
-              # Routes the edit_resource helpers have the show path instead of having the /edit suffix.
-              concern :show_form do |options|
-                get :show, options.merge(as: :edit, action: :edit, on: :member)
-              end
+          # Routes the edit_resource helpers have the show path instead of having the /edit suffix.
+          concern :show_form do |options|
+            get :show, options.merge(as: :edit, action: :edit, on: :member)
+          end
 
-              # Common elements to administered resources.
-              concern :admin do |options|
-                concerns [:show_form, :deletable], options
-              end
+          # Common elements to administered resources.
+          concern :admin do |options|
+            concerns [:show_form, :deletable], options
+          end
 
+          # Core blog administration
+          defaults admin: true do
+            scope except: [:show, :edit] do
               # Multi-site / Multi-blog support
-        #      resources :sites,
-        #      resources :blogs,
+              #resources :sites,
+              #resources :blogs,
 
-              # Core blog administration
               resources :posts, concerns: :admin do
                 resources :comments, only: :create, path: ''
               end
 
               # All taxonomies are handled through the terms controller, but they are represented differently
               # Depending on their type.
-              resources :tags,       concerns: :admin, controller: :terms, taxonomy: :tag
-              resources :categories, concerns: :admin, controller: :terms, taxonomy: :category
+              resources :tags,       concerns: :admin
+              resources :categories, concerns: :admin
 
               # Comments aren't ever created through an administered index page because they are added directly
               # to posts.
