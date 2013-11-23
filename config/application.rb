@@ -38,20 +38,22 @@ module PressMe
           scope as: :page do
             resources :posts, only: [:index, :show]
 
-            scope only: :show do
+            scope only: :index do
               resource :archive do
                 resources :year, path: '' do
                   resources :month, path: '' do
-                    resources :day, path: ''
+                    resources :day, path: '', only: [:show, :index]
                   end
                 end
               end
+            end
 
+            scope only: :show do
               resources :tags
               resources :categories
             end
 
-            resources :search, only: [:index, :show, :create]
+            resources :search, only: [:index, :create]
           end
 
           resources :users, only: :show do

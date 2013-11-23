@@ -84,7 +84,7 @@ gem 'kgio', '2.8.1'
 gem 'warden', '1.2.3'
 
 # Authorization service
-gem 'authority', '2.9.0'
+
 
 # File upload
 gem 'dragonfly', '0.9.15'
