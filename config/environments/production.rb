@@ -19,11 +19,11 @@ PressMe::Application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
 
   # Use memcached for caching
-  config.cache_store = Dalli::Client.new(ENV["MEMCACHIER_SERVERS"], value_max_bytes: 10485760)
+  client = Dalli::Client.new(ENV["MEMCACHIER_SERVERS"], value_max_bytes: 10485760)
 
   config.action_dispatch.rack_cache = {
-    metastore: config.cache_store,
-    entitystore: config.cache_store
+    metastore: client,
+    entitystore: client
   }
 
   # Disable Rails's static asset server (Apache or nginx will already do this).

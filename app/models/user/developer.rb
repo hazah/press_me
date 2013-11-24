@@ -1,3 +1,5 @@
 class User::Developer < User
-  include Authority::UserAbilities
+  def can_publish?(scope)
+    true
+  end
 end

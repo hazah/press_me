@@ -20,7 +20,7 @@ module PressMe
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.cache_store = Dalli::Client.new("localhost:11211", value_max_bytes: 10485760)
+    config.cache_store = :dalli_store
     config.static_cache_control = "public, max-age=2592000"
 
     initializer :app_init, before: :build_middleware_stack do

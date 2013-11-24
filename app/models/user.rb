@@ -16,6 +16,4 @@ class User < ActiveRecord::Base
 
   validates :email, :password,  presence: true,     unless: ->(u) { u.id == 0 || u.is_a?(Developer) }
   validates :password,          confirmation: true, unless: ->(u) { u.password.blank? }
-
-  include Authority::UserAbilities
 end

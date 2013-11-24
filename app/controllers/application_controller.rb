@@ -13,17 +13,17 @@ protected
 
   expose(:current_developer) do
     authenticate :developer
-    authentication.user :developer
+    authenticator.user :developer
   end
 
   expose(:current_user) do
     authenticate
-    authentication.user
+    authenticator.user
   end
 
   expose(:global_user) do
     authenticate :global
-    authentication.user :global
+    authenticator.user :global
   end
 
   expose :posts
