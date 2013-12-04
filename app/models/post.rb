@@ -3,9 +3,6 @@ class Post < ActiveRecord::Base
   belongs_to :blog
 
   has_and_belongs_to_many :term_taxonomies
-
-  # Must be included before any call to 'scope'
-  include Authority::Abilities
   include Slugalicious
 
   #slugged :title, scope: ->() {}

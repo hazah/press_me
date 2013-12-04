@@ -2,54 +2,38 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
   layout 'admin', only: [:new, :edit, :delete]
 
-
+protected
   before_action do
     # TODO: parse params
-    pp params
   end
 
-  before_action(only: :index) do
-    authorize_action_for posts
-  end
-
-  before_action(exept: :index) do
-    authorize_action_for post
-  end
-
-protected
-
-  expose(:account) { current_account }
-
-  expose :posts
-  expose :post
-
-  expose(:posts?) { posts.any? || post.persisted? }
-
-  expose(:current_account) { current_developer || current_user || global_user }
+  expose(:account) { current_developer || current_user || global_user }
 
   expose(:current_developer) do
     authenticate :developer
-    authentication.user :developer
+    authenticator.user :developer
   end
 
   expose(:current_user) do
     authenticate
-    authentication.user
+    authenticator.user
   end
 
   expose(:global_user) do
     authenticate :global
-    authentication.user :global
+    authenticator.user :global
   end
+
+  expose :posts
+  expose :post, exept: :index
 
   def authenticate(scope = :user)
-    authentication.authenticate scope: scope
+    authenticator.authenticate scope: scope
   end
 
-  def authentication
+  def authenticator
     request.env['warden']
   end
 end

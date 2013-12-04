@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<% if posts? %>
+<% if posts.any? || post.persisted? %>
   <%= yield  %>
 <% else %>
   <%= render 'content_none' %>
